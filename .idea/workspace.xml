@@ -5,15 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9cfc2464-f52b-4eaa-b946-77ad1f8fa37d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/campus/eventhub/web/dto/CreateEventRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/campus/eventhub/web/dto/CreateRegistrationRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/campus/eventhub/web/dto/EventDetailResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/campus/eventhub/web/dto/EventListResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/campus/eventhub/web/dto/ParticipantResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/campus/eventhub/web/dto/RegistrationResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/campus/eventhub/web/dto/UpdateEventRequest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/campus/eventhub/web/dto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/campus/eventhub/repository/EventRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campus/eventhub/repository/EventRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/campus/eventhub/repository/ParticipantRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campus/eventhub/repository/ParticipantRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/campus/eventhub/repository/RegistrationRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campus/eventhub/repository/RegistrationRepository.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
