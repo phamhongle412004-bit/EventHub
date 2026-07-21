@@ -8,8 +8,13 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface ParticipantRepository extends JpaRepository<Participant, Long> {
+
+    Optional<Participant> findByEmail(String email);
+    boolean existsByEmail(String email);
 
     @Query("SELECT p FROM Participant p WHERE " +
             "(:keyword IS NULL OR LOWER(p.fullName) LIKE LOWER(CONCAT('%', :keyword, '%')) " +
