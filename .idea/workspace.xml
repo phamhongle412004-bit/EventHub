@@ -6,8 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="9cfc2464-f52b-4eaa-b946-77ad1f8fa37d" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/campus/eventhub/web/ParticipantController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campus/eventhub/web/ParticipantController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/campus/eventhub/web/RegistrationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campus/eventhub/web/RegistrationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,7 +47,8 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "C:/Users/LE PHAM/EventHub"
+    "last_opened_file_path": "C:/Users/LE PHAM/EventHub",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
   }
 }]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
