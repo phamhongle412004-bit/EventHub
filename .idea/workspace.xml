@@ -5,10 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9cfc2464-f52b-4eaa-b946-77ad1f8fa37d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/campus/eventhub/web/dto/CreateParticipantRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/campus/eventhub/web/GlobalExceptionHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/campus/eventhub/web/dto/ApiErrorResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/campus/eventhub/web/dto/RegisterEventRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/campus/eventhub/web/dto/UserResponseDto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/campus/eventhub/web/dto/CreateEventRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campus/eventhub/web/dto/CreateEventRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/campus/eventhub/web/dto/CreateRegistrationRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campus/eventhub/web/dto/CreateRegistrationRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/campus/eventhub/web/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/campus/eventhub/web/AuthController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
