@@ -11,9 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1/auth")
 public class AuthController {
 
-    /**
-     * Lấy thông tin tài khoản hiện tại đang đăng nhập
-     */
     @GetMapping("/me")
     public ResponseEntity<UserResponseDto> getCurrentUser(Authentication authentication) {
         if (authentication == null || !authentication.isAuthenticated()) {
