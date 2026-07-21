@@ -8,9 +8,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import java.util.Optional;
 
 @Repository
 public interface RegistrationRepository extends JpaRepository<Registration, Long> {
+    boolean existsByEventIdAndParticipantIdAndStatus(Long eventId, Long participantId, RegistrationStatus status);
+    Page<Registration> findByEventId(Long eventId, Pageable pageable);
+    Optional<Registration> findByIdAndEventId(Long id, Long eventId);
 
     @Query("SELECT r FROM Registration r WHERE " +
             "(:eventId IS NULL OR r.event.id = :eventId) AND " +
