@@ -4,16 +4,9 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(
-        name = "registrations",
-        uniqueConstraints = {
-                @UniqueConstraint(
-                        name = "uk_active_registration",
-                        columnNames = {"event_id", "participant_id", "status"}
-                )
-        }
-)
+@Table(name = "registrations")
 public class Registration {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -35,6 +28,8 @@ public class Registration {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private RegistrationStatus status;
+
+    // Getters and Setters
 
     public Long getId() {
         return id;
