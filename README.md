@@ -85,9 +85,22 @@ Tài khoản Admin khởi tạo ban đầu (Development Seed):
 - Password: AdminSecret@123
 - Role: EVENT_ADMIN
 
-Bảng phân quyền (Authorization Matrix):
+### Bảng phân quyền (Authorization Matrix)
+
 | Endpoint | Method | Quyền truy cập (Authority) | Mô tả |
 | --- | --- | --- | --- |
+| `/api/v1/auth/register` | `POST` | `Public` (Mọi người) | Đăng ký tài khoản Participant mới |
+| `/api/v1/auth/login` | `POST` | `Public` (Mọi người) | Đăng nhập hệ thống, nhận JWT Access Token |
+| `/api/v1/events` | `GET` | `Public` (Mọi người) | Xem danh sách sự kiện công khai |
+| `/api/v1/events/{id}` | `GET` | `Public` (Mọi người) | Xem chi tiết một sự kiện |
+| `/api/v1/events` | `POST` | `ROLE_EVENT_ADMIN` | Tạo sự kiện mới |
+| `/api/v1/events/{id}` | `PUT` | `ROLE_EVENT_ADMIN` | Cập nhật thông tin sự kiện |
+| `/api/v1/events/{id}` | `DELETE` | `ROLE_EVENT_ADMIN` | Xóa/Hủy sự kiện |
+| `/api/v1/participants/**` | `GET`, `POST`, `PUT` | `ROLE_EVENT_ADMIN` | Quản lý danh sách người tham gia |
+| `/api/v1/events/{id}/registrations` | `POST` | `Authenticated` (`PARTICIPANT` / `ADMIN`) | Đăng ký tham gia sự kiện |
+| `/api/v1/events/{id}/registrations` | `DELETE` | `Authenticated` (`PARTICIPANT` / `ADMIN`) | Hủy đăng ký tham gia sự kiện |
+| `/actuator/health` | `GET` | `Public` | Kiểm tra trạng thái hoạt động của Server |
+| `/actuator/**` | `GET` | `ROLE_EVENT_ADMIN` | Xem các chỉ số giám sát hệ thống (Metrics, Info) |
 
 ## 6. Business Rules & Transactions Summary (Tóm tắt quy tắc nghiệp vụ)
 ### 1. Đăng ký sự kiện (Registration):
