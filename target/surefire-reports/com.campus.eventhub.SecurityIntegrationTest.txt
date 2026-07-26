@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.campus.eventhub.SecurityIntegrationTest
+-------------------------------------------------------------------------------
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.701 s -- in com.campus.eventhub.SecurityIntegrationTest

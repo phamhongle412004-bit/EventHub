@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EventHub - Công Cụ Kiểm Thử API (Bài Tập SBF_A_01)</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --success: #16a34a;
+            --danger: #dc2626;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --border: #e2e8f0;
+            --text: #0f172a;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        h1 { grid-column: 1 / -1; margin-bottom: 5px; color: #1e293b; }
+        .subtitle { grid-column: 1 / -1; margin-top: 0; color: #64748b; margin-bottom: 20px; }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 18px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .card h2 {
+            margin-top: 0;
+            font-size: 1.1rem;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 8px;
+            color: #334155;
+        }
+
+        .form-group {
+            margin-bottom: 12px;
+        }
+
+        label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: #475569;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 8px 10px;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 0.9rem;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        button {
+            padding: 8px 14px;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        button:hover { opacity: 0.9; }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-success { background: var(--success); color: white; }
+        .btn-danger { background: var(--danger); color: white; }
+        .btn-secondary { background: #64748b; color: white; }
+
+        .token-display {
+            grid-column: 1 / -1;
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            padding: 12px;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 0.85rem;
+            word-break: break-all;
+        }
+
+        .response-panel {
+            grid-column: 1 / -1;
+        }
+
+        pre {
+            background: #1e293b;
+            color: #f8fafc;
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+            max-height: 350px;
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🚀 EventHub - Công Cụ Kiểm Thử REST API</h1>
+    <p class="subtitle">Mã bài tập: SBF_A_01 | Bảng điều khiển kiểm thử giao thức Spring Boot + Bảo mật JWT</p>
+
+    <!-- Khung hiển thị Trạng thái Token -->
+    <div class="token-display">
+        <strong>🔑 Chuỗi Token JWT Hiện Tại:</strong> <span id="tokenStatus" style="color: #dc2626; font-weight: bold;">Chưa đăng nhập (Chưa có Token)</span>
+        <div id="tokenValue" style="margin-top: 5px; color: #334155;">-</div>
+    </div>
+
+    <!-- 1. Xác thực & Tài khoản -->
+    <div class="card">
+        <h2>1. Xác thực & Tài khoản (Auth)</h2>
+
+        <div class="form-group">
+            <label>Chọn tài khoản mẫu nhanh:</label>
+            <select id="authPreset" onchange="applyPreset()">
+                <option value="admin">Quản trị viên / Admin (admin@gmail.com / Admin@123)</option>
+                <option value="user">Sinh viên / Participant (student@campus.edu.vn / Student@123)</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Email tài khoản</label>
+            <input type="email" id="authEmail" value="admin@gmail.com">
+        </div>
+        <div class="form-group">
+            <label>Mật khẩu</label>
+            <input type="password" id="authPassword" value="Admin@123">
+        </div>
+
+        <div class="btn-group">
+            <button class="btn-primary" onclick="login()">Đăng Nhập (/api/auth/login)</button>
+        </div>
+
+        <hr style="margin: 15px 0; border: 0; border-top: 1px solid var(--border);">
+
+        <div class="form-group">
+            <label>Họ và Tên (Dùng khi Đăng ký Sinh viên mới)</label>
+            <input type="text" id="regFullName" value="Nguyễn Văn A">
+        </div>
+        <div class="btn-group">
+            <button class="btn-success" onclick="register()">Đăng Ký Tài Khoản (/api/auth/register)</button>
+        </div>
+    </div>
+
+    <!-- 2. Quản lý Sự kiện -->
+    <div class="card">
+        <h2>2. Quản lý Sự kiện (Events)</h2>
+        <div class="form-group">
+            <label>Tên Sự Kiện (Title)</label>
+            <input type="text" id="eventTitle" value="Hội thảo Spring Boot & Cloud 2026">
+        </div>
+        <div class="form-group">
+            <label>Mô tả sự kiện (Description)</label>
+            <input type="text" id="eventDesc" value="Hướng dẫn xây dựng REST API chuyên nghiệp với Spring Boot 3">
+        </div>
+        <div class="form-group">
+            <label>Địa điểm tổ chức (Location)</label>
+            <input type="text" id="eventLocation" value="Hội trường A2 - Cơ sở chính">
+        </div>
+        <div class="form-group">
+            <label>Thời gian bắt đầu (Start At)</label>
+            <input type="datetime-local" id="eventStartAt" value="2026-12-01T09:00">
+        </div>
+        <div class="form-group">
+            <label>Sức chứa / Số chỗ tối đa (Capacity)</label>
+            <input type="number" id="eventCapacity" value="50">
+        </div>
+
+        <div class="btn-group">
+            <button class="btn-primary" onclick="createEvent()">Tạo Event Mới (Quyền ADMIN)</button>
+            <button class="btn-secondary" onclick="getEvents()">Xem Danh Sách Event (Công khai)</button>
+        </div>
+    </div>
+
+    <!-- 3. Đăng ký Tham gia -->
+    <div class="card">
+        <h2>3. Đăng ký Tham gia (Registrations)</h2>
+        <div class="form-group">
+            <label>Mã Sự Kiện (Event ID)</label>
+            <input type="number" id="targetEventId" value="1">
+        </div>
+        <div class="form-group">
+            <label>Mã Đăng Ký / Registration ID (Dùng khi cần Hủy)</label>
+            <input type="number" id="targetRegistrationId" value="1">
+        </div>
+
+        <div class="btn-group">
+            <button class="btn-success" onclick="registerForEvent()">Đăng ký Tham gia (POST)</button>
+            <button class="btn-secondary" onclick="getRegistrations()">Xem DS Đăng ký (Quyền ADMIN)</button>
+            <button class="btn-danger" onclick="cancelRegistration()">Hủy Đăng ký (DELETE)</button>
+        </div>
+    </div>
+
+    <!-- 4. Giám sát Hệ thống -->
+    <div class="card">
+        <h2>4. Giám sát & Quản trị Hệ thống</h2>
+        <p style="font-size: 0.85rem; color: #64748b;">Kiểm tra tình trạng hệ thống và danh sách người dùng.</p>
+        <div class="btn-group">
+            <button class="btn-secondary" onclick="getParticipants()">Xem DS Người dùng (Quyền ADMIN)</button>
+            <button class="btn-primary" onclick="checkActuator('health')">Kiểm tra Health (Actuator)</button>
+            <button class="btn-primary" onclick="checkActuator('info')">Kiểm tra Info (Actuator)</button>
+        </div>
+    </div>
+
+    <!-- Khung hiển thị kết quả Trả về -->
+    <div class="card response-panel">
+        <h2>Kết quả trả về từ Server (Response JSON)</h2>
+        <pre id="jsonOutput">Chưa có request nào được gửi.</pre>
+    </div>
+</div>
+
+<script>
+    let token = '';
+
+    function applyPreset() {
+        const preset = document.getElementById('authPreset').value;
+        if (preset === 'admin') {
+            document.getElementById('authEmail').value = 'admin@gmail.com';
+            document.getElementById('authPassword').value = 'Admin@123';
+        } else {
+            document.getElementById('authEmail').value = 'student@campus.edu.vn';
+            document.getElementById('authPassword').value = 'Student@123';
+        }
+    }
+
+    function displayResponse(status, data) {
+        const output = document.getElementById('jsonOutput');
+        output.innerText = `[Mã Trạng Thái HTTP: ${status}]\n\n` + JSON.stringify(data, null, 2);
+    }
+
+    function getAuthHeader() {
+        return token ? { 'Authorization': 'Bearer ' + token } : {};
+    }
+
+    // 1. Chức năng Xác thực
+    async function login() {
+        const email = document.getElementById('authEmail').value;
+        const password = document.getElementById('authPassword').value;
+
+        try {
+            const res = await fetch('/api/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password })
+            });
+            const data = await res.json();
+            displayResponse(res.status, data);
+
+            if (res.ok && data.token) {
+                token = data.token;
+                document.getElementById('tokenStatus').innerText = '✅ Đã đăng nhập thành công';
+                document.getElementById('tokenStatus').style.color = '#16a34a';
+                document.getElementById('tokenValue').innerText = token;
+            }
+        } catch (err) {
+            displayResponse('Lỗi kết nối', { message: err.message });
+        }
+    }
+
+    async function register() {
+        const fullName = document.getElementById('regFullName').value;
+        const email = document.getElementById('authEmail').value;
+        const password = document.getElementById('authPassword').value;
+
+        try {
+            const res = await fetch('/api/auth/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ fullName, email, password })
+            });
+            const data = await res.json();
+            displayResponse(res.status, data);
+        } catch (err) {
+            displayResponse('Lỗi kết nối', { message: err.message });
+        }
+    }
+
+    // 2. Chức năng Sự kiện
+    async function createEvent() {
+        const eventData = {
+            title: document.getElementById('eventTitle').value,
+            description: document.getElementById('eventDesc').value,
+            location: document.getElementById('eventLocation').value,
+            startAt: document.getElementById('eventStartAt').value + ':00',
+            capacity: parseInt(document.getElementById('eventCapacity').value)
+        };
+
+        try {
+            const url = '/api/v1/events';
+            const res = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    ...getAuthHeader()
+                },
+                body: JSON.stringify(eventData)
+            });
+            const data = await res.json();
+            displayResponse(res.status, data);
+        } catch (err) {
+            displayResponse('Lỗi kết nối', { message: err.message });
+        }
+    }
+
+    async function getEvents() {
+        try {
+            const res = await fetch('/api/v1/events');
+            const data = await res.json();
+            displayResponse(res.status, data);
+        } catch (err) {
+            displayResponse('Lỗi kết nối', { message: err.message });
+        }
+    }
+
+    // 3. Chức năng Đăng ký Tham gia
+    async function registerForEvent() {
+        const eventId = document.getElementById('targetEventId').value;
+        try {
+            const res = await fetch(`/api/v1/events/${eventId}/registrations`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    ...getAuthHeader()
+                }
+            });
+            const data = await res.json();
+            displayResponse(res.status, data);
+        } catch (err) {
+            displayResponse('Lỗi kết nối', { message: err.message });
+        }
+    }
+
+    async function getRegistrations() {
+        const eventId = document.getElementById('targetEventId').value;
+        try {
+            const res = await fetch(`/api/v1/events/${eventId}/registrations`, {
+                headers: getAuthHeader()
+            });
+            const data = await res.json();
+            displayResponse(res.status, data);
+        } catch (err) {
+            displayResponse('Lỗi kết nối', { message: err.message });
+        }
+    }
+
+    async function cancelRegistration() {
+        const eventId = document.getElementById('targetEventId').value;
+        const regId = document.getElementById('targetRegistrationId').value;
+        try {
+            const res = await fetch(`/api/v1/events/${eventId}/registrations/${regId}`, {
+                method: 'DELETE',
+                headers: getAuthHeader()
+            });
+            if (res.status === 204) {
+                displayResponse(204, { message: 'Hủy/Xóa đăng ký thành công! (Mã lỗi HTTP: 204 No Content)' });
+            } else {
+                const data = await res.json();
+                displayResponse(res.status, data);
+            }
+        } catch (err) {
+            displayResponse('Lỗi kết nối', { message: err.message });
+        }
+    }
+
+    // 4. Người dùng & Actuator
+    async function getParticipants() {
+        try {
+            const res = await fetch('/api/v1/participants', {
+                headers: getAuthHeader()
+            });
+            const data = await res.json();
+            displayResponse(res.status, data);
+        } catch (err) {
+            displayResponse('Lỗi kết nối', { message: err.message });
+        }
+    }
+
+    async function checkActuator(endpoint) {
+        try {
+            const res = await fetch(`/actuator/${endpoint}`, {
+                headers: getAuthHeader()
+            });
+            const data = await res.json();
+            displayResponse(res.status, data);
+        } catch (err) {
+            displayResponse('Lỗi kết nối', { message: err.message });
+        }
+    }
+</script>
+</body>
+</html>

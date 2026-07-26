@@ -1,7 +1,6 @@
 C:\Users\LE PHAM\EventHub\src\main\java\com\campus\eventhub\web\dto\RegisterEventRequest.java
 C:\Users\LE PHAM\EventHub\src\main\java\com\campus\eventhub\domain\Role.java
 C:\Users\LE PHAM\EventHub\src\main\java\com\campus\eventhub\domain\EventStatus.java
-C:\Users\LE PHAM\EventHub\src\main\java\com\campus\eventhub\SecurityIntegrationTest.java
 C:\Users\LE PHAM\EventHub\src\main\java\com\campus\eventhub\domain\UserRole.java
 C:\Users\LE PHAM\EventHub\src\main\java\com\campus\eventhub\web\dto\EventDetailResponse.java
 C:\Users\LE PHAM\EventHub\src\main\java\com\campus\eventhub\exception\DuplicateResourceException.java

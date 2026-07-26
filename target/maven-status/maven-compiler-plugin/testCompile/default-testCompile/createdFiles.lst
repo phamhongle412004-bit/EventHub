@@ -1,0 +1,5 @@
+com\campus\eventhub\EventIntegrationTest.class
+com\campus\eventhub\repository\ParticipantRepositoryDataJpaTest.class
+com\campus\eventhub\SecurityIntegrationTest.class
+com\campus\eventhub\web\EventControllerTest.class
+com\campus\eventhub\service\RegistrationServiceTest.class
